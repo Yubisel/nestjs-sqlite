@@ -1,7 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ContactsService } from './contacts.service';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
+import { Contact } from './entities/contact.entity';
 
 @Controller('contacts')
 export class ContactsController {
@@ -9,11 +18,12 @@ export class ContactsController {
 
   @Post()
   create(@Body() createContactDto: CreateContactDto) {
+    console.log(createContactDto);
     return this.contactsService.create(createContactDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<Contact[]> {
     return this.contactsService.findAll();
   }
 
